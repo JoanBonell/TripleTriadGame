@@ -1,0 +1,34 @@
+package cat.udl.hyperion.appmobils.tripletriad.viewmodels;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import cat.udl.hyperion.appmobils.tripletriad.models.Board;
+import cat.udl.hyperion.appmobils.tripletriad.models.Card;
+import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
+
+public class BoardViewModel extends ViewModel {
+    private MutableLiveData<Board> board;
+
+    public BoardViewModel() {
+        board = new MutableLiveData<>();
+        board.setValue(new Board());
+    }
+
+    public LiveData<Board> getBoard() {
+        return board;
+    }
+
+    public void placeCard(int row, int col, Card card) {
+        if (board.getValue() != null) {
+            board.getValue().placeCard(card, new Cell(row, col));
+            board.postValue(board.getValue());
+        }
+    }
+
+
+    public void playCard(int row, int col, Card selectedCard) {
+
+    }
+}
