@@ -38,10 +38,6 @@ public class DeckFragment extends Fragment {
             cardAdapter.notifyDataSetChanged();
         });
 
-        deckViewModel.getSelectedCard().observe(getViewLifecycleOwner(), card -> {
-            // Aquí puedes realizar acciones cuando la carta seleccionada cambie, si es necesario
-        });
-
         return binding.getRoot();
     }
 }

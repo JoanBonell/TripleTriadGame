@@ -49,11 +49,12 @@ public class DeckViewModel extends ViewModel {
             deck.postValue(currentDeck);
         }
     }
-    public LiveData<Card> getSelectedCard() {
-        return cardSelected;
-    }
 
     public void setSelectedCard(Card card) {
         cardSelected.setValue(card);
+    }
+
+    public Card getSelectedCard(){
+        return cardSelected.getValue();
     }
 }

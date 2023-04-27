@@ -5,31 +5,39 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentBoardBinding;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentCellBinding;
-import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
 public class BoardFragment extends Fragment implements OnCellClickListener{
 
     private BoardViewModel boardViewModel;
-
+    private DeckViewModel deckViewModel;
     private FragmentBoardBinding binding;
+
+    public static BoardFragment newInstance(DeckViewModel deckViewModel) {
+        BoardFragment fragment = new BoardFragment();
+        fragment.deckViewModel = deckViewModel;
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        boardViewModel = new BoardViewModel(deckViewModel);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_board, container, false);
 
-        boardViewModel = new ViewModelProvider(this).get(BoardViewModel.class);
         binding.setBoardViewModel(boardViewModel);
         binding.setLifecycleOwner(this);
         inflateCells();
@@ -37,21 +45,10 @@ public class BoardFragment extends Fragment implements OnCellClickListener{
         return binding.getRoot();
     }
 
-
     @Override
-    public void onCellClick(int row, int col, Card selectedCard) {
-        if (selectedCard != null) {
-            boardViewModel.playCard(row, col, selectedCard);
-        } else {
-            //todo
-            // Muestra un mensaje para informar al usuario que no ha seleccionado una carta
-        }
+    public void onCellClick(int row, int col) {
+        boardViewModel.playCard(row, col);
     }
-    public static BoardFragment newInstance(DeckViewModel deckViewModel) {
-        BoardFragment fragment = new BoardFragment();
-        return fragment;
-    }
-
 
     private void inflateCells() {
         for (int row = 0; row < 3; row++) {
@@ -66,5 +63,4 @@ public class BoardFragment extends Fragment implements OnCellClickListener{
             }
         }
     }
-
 }
