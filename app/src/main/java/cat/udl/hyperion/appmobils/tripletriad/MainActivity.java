@@ -13,9 +13,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BoardFragment boardFragment = new BoardFragment();
-        PlayerFragment playerFragment = new PlayerFragment();
-        DeckFragment deckFragment = new DeckFragment();
+
+        PlayerFragment playerFragment = PlayerFragment.newInstance();
+        DeckFragment deckFragment = DeckFragment.newInstance();
+        BoardFragment boardFragment = BoardFragment.newInstance();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
@@ -25,4 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.commit();
     }
+
+
 }

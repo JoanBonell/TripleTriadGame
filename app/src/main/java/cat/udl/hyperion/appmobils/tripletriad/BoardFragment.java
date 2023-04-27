@@ -26,6 +26,12 @@ public class BoardFragment extends Fragment implements OnCellClickListener{
         fragment.deckViewModel = deckViewModel;
         return fragment;
     }
+    public static BoardFragment newInstance() {
+        BoardFragment fragment = new BoardFragment();
+        return fragment;
+    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/boardFragment" />
+        app:layout_constraintBottom_toTopOf="@id/boardFragment"
+        app:layout_constraintVertical_weight="1" />
 
     <FrameLayout
         android:id="@+id/boardFragment"
@@ -22,7 +23,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerFragment"
-        app:layout_constraintBottom_toTopOf="@id/deckFragment" />
+        app:layout_constraintBottom_toTopOf="@id/deckFragment"
+        app:layout_constraintVertical_weight="2" />
 
     <FrameLayout
         android:id="@+id/deckFragment"
@@ -31,6 +33,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/boardFragment"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

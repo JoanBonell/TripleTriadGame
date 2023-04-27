@@ -17,4 +17,8 @@ public class CellViewModel extends BaseObservable {
         this.card = card;
         notifyChange();
     }
+    @Bindable
+    public Integer getImageResource() {
+        return card != null ? card.getImageResource() : null;
+    }
 }

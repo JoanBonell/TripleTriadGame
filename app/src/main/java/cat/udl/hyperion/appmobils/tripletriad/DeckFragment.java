@@ -21,6 +21,11 @@ public class DeckFragment extends Fragment {
     private FragmentDeckBinding binding;
     private CardAdapter cardAdapter;
 
+    public static DeckFragment newInstance() {
+        DeckFragment deckFragment = new DeckFragment();
+        return deckFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

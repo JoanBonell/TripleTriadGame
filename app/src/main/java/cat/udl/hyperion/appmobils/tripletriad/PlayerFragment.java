@@ -21,6 +21,11 @@ public class PlayerFragment extends Fragment {
     private PlayerViewModel playerViewModel;
     private FragmentPlayerBinding binding;
 
+    public static PlayerFragment newInstance() {
+        PlayerFragment playerFragment = new PlayerFragment();
+        return playerFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

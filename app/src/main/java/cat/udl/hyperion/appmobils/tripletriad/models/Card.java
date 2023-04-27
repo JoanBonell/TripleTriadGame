@@ -3,7 +3,7 @@ package cat.udl.hyperion.appmobils.tripletriad.models;
 import androidx.databinding.ObservableField;
 
 public class Card {
-    private int imageUrl;
+    private Integer imageUrl;
     private String name;
     private int powerArriba;
     private int powerIzquierda;
@@ -20,7 +20,7 @@ public class Card {
      * @param powerAbajo Poder de la carta en la dirección de abajo.
      * @param powerDerecha Poder de la carta en la dirección de la derecha.
      */
-    public Card(int imageResource, String name, int powerArriba, int powerIzquierda, int powerAbajo, int powerDerecha){
+    public Card(Integer imageResource, String name, int powerArriba, int powerIzquierda, int powerAbajo, int powerDerecha){
         this.imageUrl = imageResource;
         this.name = name;
         this.powerArriba = powerArriba;
