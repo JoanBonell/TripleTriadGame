@@ -15,9 +15,11 @@ import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
     private List<Card> cards;
+    private OnCardClickListener onCardClickListener;
 
-    public CardAdapter(List<Card> cards) {
+    public CardAdapter(List<Card> cards, OnCardClickListener onCardClickListener) {
         this.cards = cards;
+        this.onCardClickListener = onCardClickListener;
     }
 
     @NonNull
@@ -31,7 +33,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Card card = cards.get(position);
         holder.binding.setItemCard(card);
-        //holder.binding.setCard(card);
+        holder.binding.cardImage.setOnClickListener((v -> onCardClickListener.onCardClick(card)));
+        //TODO: Revisar que no s'hagi de crear un objecte cardImageButton
+        //holder.binding.cardImageButton.setOnClickListener(v -> onCardClickListener.onCardClick(card));
     }
 
     @Override

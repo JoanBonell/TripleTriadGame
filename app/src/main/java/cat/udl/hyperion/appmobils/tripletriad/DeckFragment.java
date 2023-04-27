@@ -30,17 +30,18 @@ public class DeckFragment extends Fragment {
         binding.setDeckViewModel(deckViewModel);
         binding.setLifecycleOwner(this);
 
-        cardAdapter = new CardAdapter(deckViewModel.getDeck().getValue().getCards());
+        cardAdapter = new CardAdapter(deckViewModel.getDeck().getValue().getCards(), card -> deckViewModel.setSelectedCard(card));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
-        //binding.deckRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerView.setAdapter(cardAdapter);
-        //binding.deckRecyclerView.setAdapter(cardAdapter);
 
         deckViewModel.getDeck().observe(getViewLifecycleOwner(), deck -> {
             cardAdapter.notifyDataSetChanged();
         });
 
+        deckViewModel.getSelectedCard().observe(getViewLifecycleOwner(), card -> {
+            // Aquí puedes realizar acciones cuando la carta seleccionada cambie, si es necesario
+        });
+
         return binding.getRoot();
     }
-
 }
