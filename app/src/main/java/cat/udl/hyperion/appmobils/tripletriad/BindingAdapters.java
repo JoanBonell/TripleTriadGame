@@ -32,4 +32,14 @@ public class BindingAdapters {
     public static void setSrcCompat(ImageView view, int resourceId) {
         view.setImageResource(resourceId);
     }
+
+    @BindingAdapter("imageUrl")
+    public static void setImageUrl(ImageView imageView, Integer imageResource) {
+        if (imageResource != null) {
+            imageView.setImageResource(imageResource);
+        } else {
+            imageView.setImageResource(R.drawable.card_placeholder);
+        }
+    }
+
 }

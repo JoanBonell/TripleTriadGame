@@ -29,8 +29,7 @@ public class BoardViewModel extends ViewModel {
             board.postValue(board.getValue());
         }
     }
-    public void playCard(int row, int col) {
-        Card selectedCard = deckViewModel.getSelectedCard();
+    public void playCard(int row, int col, Card selectedCard) {
         if (selectedCard != null) {
             placeCard(row, col, selectedCard);
             // Hacer que la carta seleccionada sea nula después de colocarla en el tablero

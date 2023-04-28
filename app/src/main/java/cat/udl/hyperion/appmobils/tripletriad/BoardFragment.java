@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentBoardBinding;
+import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
@@ -53,13 +54,17 @@ public class BoardFragment extends Fragment implements OnCellClickListener {
     }
 
     private void setupRecyclerView() {
-        cellAdapter = new CellAdapter(this);
+        cellAdapter = new CellAdapter(this, boardViewModel);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.recyclerView.setAdapter(cellAdapter);
     }
 
     @Override
     public void onCellClick(int row, int col) {
-        boardViewModel.playCard(row, col);
+        Card selectedCard = deckViewModel.getSelectedCard();
+        if (selectedCard != null) {
+            boardViewModel.playCard(row, col, selectedCard);
+        }
     }
+
 }

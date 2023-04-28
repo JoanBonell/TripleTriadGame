@@ -42,4 +42,9 @@ public class Board {
             }
         }
     }
+    public Card getCardAt(Cell cell) {
+        String rowKey = "row" + cell.getRow();
+        String colKey = "cell" + cell.getCol();
+        return board.get(rowKey).get(colKey).getCard();
+    }
 }
