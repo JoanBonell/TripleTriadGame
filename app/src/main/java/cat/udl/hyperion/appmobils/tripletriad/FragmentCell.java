@@ -9,17 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentCellBinding;
+import cat.udl.hyperion.appmobils.tripletriad.databinding.CellLayoutBinding;
 import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
 
 public class FragmentCell extends Fragment {
 
-    private FragmentCellBinding binding;
+    private CellLayoutBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cell, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.cell_layout, container, false);
 
         Cell cell = getArguments().getParcelable("cell");
         binding.setCellViewModel(cell);

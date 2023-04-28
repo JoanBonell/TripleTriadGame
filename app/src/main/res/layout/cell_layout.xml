@@ -4,18 +4,20 @@
 
     <data>
         <variable
-            name="boardViewModel"
-            type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel" />
+            name="cellViewModel"
+            type="cat.udl.hyperion.appmobils.tripletriad.models.Cell" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="100dp"
+        android:layout_height="100dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@{cellViewModel.card.imageResource}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
