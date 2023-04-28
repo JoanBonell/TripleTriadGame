@@ -1,10 +1,10 @@
 package cat.udl.hyperion.appmobils.tripletriad;
 
-import static cat.udl.hyperion.appmobils.tripletriad.BR.deckViewModel;
-
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,10 +13,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Crear una instancia de DeckViewModel
+        DeckViewModel deckViewModel = new DeckViewModel();
 
         PlayerFragment playerFragment = PlayerFragment.newInstance();
         DeckFragment deckFragment = DeckFragment.newInstance();
-        BoardFragment boardFragment = BoardFragment.newInstance();
+
+        // Pasar la instancia de DeckViewModel al constructor de BoardFragment
+        BoardFragment boardFragment = BoardFragment.newInstance(deckViewModel);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
@@ -26,6 +30,4 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.commit();
     }
-
-
 }

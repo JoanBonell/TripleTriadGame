@@ -24,14 +24,14 @@ public class BoardFragment extends Fragment implements OnCellClickListener {
 
     public static BoardFragment newInstance(DeckViewModel deckViewModel) {
         BoardFragment fragment = new BoardFragment();
-        fragment.deckViewModel = deckViewModel;
+        fragment.setDeckViewModel(deckViewModel);
         return fragment;
     }
 
-    public static BoardFragment newInstance() {
-        BoardFragment fragment = new BoardFragment();
-        return fragment;
+    public void setDeckViewModel(DeckViewModel deckViewModel){
+        this.deckViewModel = deckViewModel;
     }
+
 
 
     @Override
