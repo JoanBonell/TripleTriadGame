@@ -29,6 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> board.playCard(cellViewModel.cell.row, cellViewModel.cell.col, board.selectedCard)}"/>
+            android:onClick="@{() -> board.playSelectedCard(cellViewModel.cell.row, cellViewModel.cell.col)}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

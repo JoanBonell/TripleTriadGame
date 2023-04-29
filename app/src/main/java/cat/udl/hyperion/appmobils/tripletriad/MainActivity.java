@@ -4,6 +4,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import cat.udl.hyperion.appmobils.tripletriad.BoardFragment;
+import cat.udl.hyperion.appmobils.tripletriad.DeckFragment;
+import cat.udl.hyperion.appmobils.tripletriad.PlayerFragment;
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
 public class MainActivity extends AppCompatActivity {

@@ -62,5 +62,12 @@ public class BoardViewModel extends ViewModel {
     public CellViewModel getCellAt(int row, int col) {
         return cells[row][col];
     }
+    public void playSelectedCard(int row, int col) {
+        Card selectedCard = deckViewModel.getSelectedCard().getValue();
+        if (selectedCard != null) {
+            playCard(row, col, selectedCard);
+        }
+    }
+
 
 }

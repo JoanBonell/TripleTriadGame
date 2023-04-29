@@ -15,7 +15,6 @@ import cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel;
 public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
 
     private final int numCells = 9;
-    private final OnCellClickListener onCellClickListener;
     private final BoardViewModel boardViewModel;
 
     private List<CellViewModel> cellViewModels;
@@ -29,8 +28,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         }
     }
 
-    public CellAdapter(OnCellClickListener onCellClickListener, BoardViewModel boardViewModel) {
-        this.onCellClickListener = onCellClickListener;
+    public CellAdapter(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         cellViewModels = new ArrayList<>();
 

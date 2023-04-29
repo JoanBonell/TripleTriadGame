@@ -18,7 +18,7 @@ import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
-public class BoardFragment extends Fragment implements OnCellClickListener {
+public class BoardFragment extends Fragment {
 
     private BoardViewModel boardViewModel;
     private DeckViewModel deckViewModel;
@@ -56,6 +56,7 @@ public class BoardFragment extends Fragment implements OnCellClickListener {
             @Override
             public void onChanged(Card card) {
                 // Aquí puede manejar los cambios en la carta seleccionada si es necesario
+               // boardViewModel.playCard(1,0,card);
             }
         });
 
@@ -65,18 +66,14 @@ public class BoardFragment extends Fragment implements OnCellClickListener {
 
 
     private void setupRecyclerView() {
-        cellAdapter = new CellAdapter(this, boardViewModel);
+        cellAdapter = new CellAdapter(boardViewModel);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.recyclerView.setAdapter(cellAdapter);
     }
 
-    @Override
-    public void onCellClick(int row, int col) {
-        Card selectedCard = deckViewModel.getSelectedCard().getValue();
-        if (selectedCard != null) {
-            boardViewModel.playCard(row, col, selectedCard);
-        }
-    }
+
+
+
 
 
 }
