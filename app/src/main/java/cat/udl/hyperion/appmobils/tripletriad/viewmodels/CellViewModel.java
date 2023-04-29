@@ -4,21 +4,32 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
+import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
 
 public class CellViewModel extends BaseObservable {
-    private Card card;
+    private Cell cell;
+
+    public CellViewModel(Cell cell) {
+        this.cell = cell;
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
 
     @Bindable
     public Card getCard() {
-        return card;
+        return cell.getCard();
     }
 
     public void setCard(Card card) {
-        this.card = card;
+        cell.setCard(card);
         notifyChange();
     }
+
     @Bindable
     public Integer getImageResource() {
-        return card != null ? card.getImageResource() : null;
+        Card card = cell.getCard();
+        return card !=  null ? card.getImageResource() : null;
     }
 }

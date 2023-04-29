@@ -1,8 +1,5 @@
 package cat.udl.hyperion.appmobils.tripletriad.viewmodels;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -54,7 +51,7 @@ public class DeckViewModel extends ViewModel {
         cardSelected.setValue(card);
     }
 
-    public Card getSelectedCard(){
-        return cardSelected.getValue();
+    public LiveData<Card> getSelectedCard(){
+        return cardSelected;
     }
 }

@@ -12,10 +12,28 @@ public class BoardViewModel extends ViewModel {
     private MutableLiveData<Board> board;
     private DeckViewModel deckViewModel;
 
+    private CellViewModel[][] cells;
+    private MutableLiveData<Card> selectedCard = new MutableLiveData<>();
+
+    public LiveData<Card> getSelectedCard() {
+        return deckViewModel.getSelectedCard();
+        //return selectedCard;
+    }
+
+    public void setSelectedCard(Card card) {
+        selectedCard.setValue(card);
+    }
+
+
     public BoardViewModel(DeckViewModel deckViewModel) {
-        board = new MutableLiveData<>();
-        board.setValue(new Board());
-        this.deckViewModel = deckViewModel;
+        this.cells = new CellViewModel[3][3];
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Cell cell = new Cell(row, col);
+                cells[row][col] = new CellViewModel(cell);
+            }
+        }
     }
 
 
@@ -29,13 +47,20 @@ public class BoardViewModel extends ViewModel {
             board.postValue(board.getValue());
         }
     }
-    public void playCard(int row, int col, Card selectedCard) {
-        if (selectedCard != null) {
-            placeCard(row, col, selectedCard);
-            // Hacer que la carta seleccionada sea nula después de colocarla en el tablero
-            deckViewModel.setSelectedCard(null);
-        } else {
-            // TODO: Mostrar un mensaje para informar al usuario que no ha seleccionado una carta
+    public void playCard(int row, int col, Card card) {
+        if (card != null) {
+            Board boardInstance = board.getValue();
+            if (boardInstance != null && boardInstance.isEmpty(row, col)) {
+                boardInstance.setCardAt(row, col, card);
+                board.setValue(boardInstance);
+                // Aquí puedes agregar cualquier lógica adicional del juego
+                // como verificar si el juego ha terminado o cambiar de jugador
+            }
         }
     }
+
+    public CellViewModel getCellAt(int row, int col) {
+        return cells[row][col];
+    }
+
 }

@@ -13,6 +13,10 @@ public class Board {
         initializeBoard();
     }
 
+    public ObservableArrayMap<String, ObservableArrayMap<String, Cell>> getBoard() {
+        return board;
+    }
+
     public void initializeBoard(){
         board = new ObservableArrayMap<>();
         for(int i = 0; i < numRows; i++){
@@ -47,4 +51,17 @@ public class Board {
         String colKey = "cell" + cell.getCol();
         return board.get(rowKey).get(colKey).getCard();
     }
+
+    public boolean isEmpty(int row, int col) {
+        String rowKey = "row" + row;
+        String colKey = "cell" + col;
+        return board.get(rowKey).get(colKey).getCard() == null;
+    }
+
+    public void setCardAt(int row, int col, Card card) {
+        String rowKey = "row" + row;
+        String colKey = "cell" + col;
+        board.get(rowKey).get(colKey).setCard(card);
+    }
+
 }

@@ -2,15 +2,13 @@ package cat.udl.hyperion.appmobils.tripletriad.models;
 
 import androidx.databinding.ObservableField;
 
-import cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel;
-
-public class Cell extends CellViewModel {
+public class Cell {
     private ObservableField<Card> card;
     private int row;
     private int col;
 
-    public Cell(int row, int col){
-        this.card = new ObservableField<>(null);
+    public Cell(int row, int col) {
+        this.card = new ObservableField<>();
         this.row = row;
         this.col = col;
     }
