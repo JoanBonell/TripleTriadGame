@@ -1,8 +1,9 @@
 package cat.udl.hyperion.appmobils.tripletriad.models;
 
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
 
-public class Card {
+public class Card{
     private Integer imageUrl;
     private String name;
     private int powerArriba;

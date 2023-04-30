@@ -4,11 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
-import cat.udl.hyperion.appmobils.tripletriad.BoardFragment;
-import cat.udl.hyperion.appmobils.tripletriad.DeckFragment;
-import cat.udl.hyperion.appmobils.tripletriad.PlayerFragment;
-import cat.udl.hyperion.appmobils.tripletriad.R;
+import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,13 +17,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Crear una instancia de DeckViewModel
-        DeckViewModel deckViewModel = new DeckViewModel();
+        DeckViewModel deckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
 
         PlayerFragment playerFragment = PlayerFragment.newInstance();
         DeckFragment deckFragment = DeckFragment.newInstance();
 
-        // Pasar la instancia de DeckViewModel al constructor de BoardFragment
-        BoardFragment boardFragment = BoardFragment.newInstance(deckViewModel);
+        // Crear una instancia de BoardViewModel
+        BoardViewModel boardViewModel = new ViewModelProvider(this).get(BoardViewModel.class);
+        // Asignar la instancia de DeckViewModel al BoardViewModel
+        boardViewModel.setDeckViewModel(deckViewModel);
+
+        // Crear una instancia de BoardFragment sin pasar DeckViewModel como parámetro
+        BoardFragment boardFragment = BoardFragment.newInstance();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

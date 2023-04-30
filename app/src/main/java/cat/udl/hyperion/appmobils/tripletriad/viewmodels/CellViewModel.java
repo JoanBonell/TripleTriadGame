@@ -3,6 +3,7 @@ package cat.udl.hyperion.appmobils.tripletriad.viewmodels;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import cat.udl.hyperion.appmobils.tripletriad.BR;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
 
@@ -24,7 +25,8 @@ public class CellViewModel extends BaseObservable {
 
     public void setCard(Card card) {
         cell.setCard(card);
-        notifyChange();
+        notifyPropertyChanged(BR.card);
+        notifyPropertyChanged(BR.imageResource);
     }
 
     @Bindable
