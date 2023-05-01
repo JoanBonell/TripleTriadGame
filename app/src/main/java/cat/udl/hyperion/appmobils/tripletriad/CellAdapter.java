@@ -36,7 +36,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                CellViewModel cellViewModel = boardViewModel.getCellAt(row, col);
+                CellViewModel cellViewModel = boardViewModel.getCellViewModelAt(row, col);
                 cellViewModels.add(cellViewModel);
             }
         }
@@ -54,7 +54,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int row = position / 3;
         int col = position % 3;
-        CellViewModel cellViewModel = boardViewModel.getCellAt(row, col);
+        CellViewModel cellViewModel = boardViewModel.getCellViewModelAt(row, col);
         holder.binding.setCellViewModel(cellViewModel);
         holder.binding.setBoard(boardViewModel);
         holder.binding.executePendingBindings();

@@ -34,13 +34,6 @@ public class BoardFragment extends Fragment {
         return fragment;
     }
 
-
-    public void setDeckViewModel(DeckViewModel deckViewModel){
-        this.deckViewModel = deckViewModel;
-    }
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,16 +59,23 @@ public class BoardFragment extends Fragment {
         binding.setLifecycleOwner(this);
         setupRecyclerView();
 
-        deckViewModel.getSelectedCard().observe(getViewLifecycleOwner(), new Observer<Card>() {
-            @Override
-            public void onChanged(Card card) {
-                // Aquí puede manejar los cambios en la carta seleccionada si es necesario
-               // boardViewModel.playCard(1,0,card);
-            }
-        });
+        // Verifica que getSelectedCard() no devuelva null antes de llamar a observe
+        LiveData<Card> selectedCardLiveData = deckViewModel.getSelectedCard();
+        if (selectedCardLiveData != null) {
+            selectedCardLiveData.observe(getViewLifecycleOwner(), new Observer<Card>() {
+                @Override
+                public void onChanged(Card card) {
+                    Card carta_test = new Card(R.drawable.barrio_adri_contreras_presidente,"AdriContreras", 9, 7, 10,10);
+                    boardViewModel.placeCard(0,0,carta_test);
+                    // Aquí puede manejar los cambios en la carta seleccionada si es necesario
+                    // boardViewModel.playCard(1,0,card);
+                }
+            });
+        }
 
         return binding.getRoot();
     }
+
 
 
 
