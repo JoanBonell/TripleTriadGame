@@ -7,9 +7,6 @@
             name="cellViewModel"
             type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel" />
         <variable
-            name="card"
-            type="cat.udl.hyperion.appmobils.tripletriad.models.Card" />
-        <variable
             name="board"
             type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel" />
     </data>
@@ -24,7 +21,6 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{cellViewModel.imageResource}"
-            android:background="@drawable/card_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

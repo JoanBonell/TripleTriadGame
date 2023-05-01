@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import cat.udl.hyperion.appmobils.tripletriad.BR;
 import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.models.Board;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
@@ -95,13 +96,20 @@ public class BoardViewModel extends ViewModel {
             // Actualiza la celda y la tabla aquí
             Cell cell = getCellAt(row, col);
             cell.setCard(cardToPlay);
+            updateCellInCellsList(cell);
+
+            // Obtén y actualiza el CellViewModel correspondiente
+            CellViewModel cellViewModel = getCellViewModelAt(row, col);
+            cellViewModel.notifyPropertyChanged(BR.imageResource);
 
             // Elimina la carta del deck una vez que se ha jugado
             deckViewModel.removeCardFromDeck(cardToPlay);
+            logBoardState();
         } else {
             Log.d(TAG, "La carta seleccionada es null");
         }
     }
+
 
     public DeckViewModel getDeckViewModel() {
         return deckViewModel;
@@ -110,4 +118,31 @@ public class BoardViewModel extends ViewModel {
     public void setDeckViewModel(DeckViewModel deckViewModel) {
         this.deckViewModel = deckViewModel;
     }
+    private void updateCellInCellsList(Cell updatedCell) {
+        List<Cell> cellList = cells.getValue();
+        if (cellList != null) {
+            int index = updatedCell.getRow() * 3 + updatedCell.getCol();
+            cellList.set(index, updatedCell);
+            cells.setValue(cellList);
+        } else {
+            throw new IllegalStateException("Cells MutableLiveData has a null value");
+        }
+    }
+    public void logBoardState() {
+        StringBuilder boardState = new StringBuilder("Estado del tablero:\n");
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Cell cell = getCellAt(row, col);
+                Card card = cell.getCard();
+                if (card != null) {
+                    boardState.append(String.format("Posición (%d, %d): %s\n", row, col, card.getName()));
+                } else {
+                    boardState.append(String.format("Posición (%d, %d): Vacío\n", row, col));
+                }
+            }
+        }
+        Log.d(TAG, boardState.toString());
+    }
+
+
 }

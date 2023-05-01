@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentBoardBinding;
+import cat.udl.hyperion.appmobils.tripletriad.models.Board;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
@@ -65,13 +66,18 @@ public class BoardFragment extends Fragment {
             selectedCardLiveData.observe(getViewLifecycleOwner(), new Observer<Card>() {
                 @Override
                 public void onChanged(Card card) {
-                    Card carta_test = new Card(R.drawable.barrio_adri_contreras_presidente,"AdriContreras", 9, 7, 10,10);
-                    boardViewModel.placeCard(0,0,carta_test);
                     // Aquí puede manejar los cambios en la carta seleccionada si es necesario
                     // boardViewModel.playCard(1,0,card);
                 }
             });
         }
+        boardViewModel.getBoard().observe(getViewLifecycleOwner(), new Observer<Board>() {
+            @Override
+            public void onChanged(Board board) {
+                cellAdapter.notifyDataSetChanged();
+            }
+        });
+
 
         return binding.getRoot();
     }

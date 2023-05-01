@@ -60,6 +60,8 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         holder.binding.executePendingBindings();
     }
 
+
+
     @Override
     public int getItemCount() {
         return numCells;
