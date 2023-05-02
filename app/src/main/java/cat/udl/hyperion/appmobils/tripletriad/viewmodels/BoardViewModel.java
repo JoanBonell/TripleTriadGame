@@ -84,6 +84,7 @@ public class BoardViewModel extends ViewModel {
 
     public void playSelectedCard(int row, int col) {
         Card cardToPlay = deckViewModel.getSelectedCard().getValue();
+        deckViewModel.setSelectedCard(null);
         if (cardToPlay != null) {
             Log.d(TAG, "Colocando una carta en la posición " + row + " " + col + " la carta es " + cardToPlay.getName());
             placeCard(row, col, cardToPlay);
