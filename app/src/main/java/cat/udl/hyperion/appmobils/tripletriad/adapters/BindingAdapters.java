@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.adapters;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 
 public class BindingAdapters {

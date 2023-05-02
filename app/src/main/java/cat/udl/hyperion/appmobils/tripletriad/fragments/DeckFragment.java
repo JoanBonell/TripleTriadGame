@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
+import cat.udl.hyperion.appmobils.tripletriad.adapters.CardAdapter;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentDeckBinding;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 

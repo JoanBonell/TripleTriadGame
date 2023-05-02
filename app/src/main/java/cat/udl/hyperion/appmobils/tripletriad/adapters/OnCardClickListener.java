@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.adapters;
 
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 

@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.CellLayoutBinding;
 import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel;

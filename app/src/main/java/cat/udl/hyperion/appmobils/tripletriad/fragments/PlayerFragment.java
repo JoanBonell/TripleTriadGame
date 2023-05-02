@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentPlayerBinding;
-import cat.udl.hyperion.appmobils.tripletriad.models.Player;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.PlayerViewModel;
 
 

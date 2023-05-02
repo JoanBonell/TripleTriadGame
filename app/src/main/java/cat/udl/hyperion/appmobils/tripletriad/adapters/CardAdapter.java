@@ -1,4 +1,4 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.ItemCardBinding;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 
@@ -34,8 +35,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         Card card = cards.get(position);
         holder.binding.setItemCard(card);
         holder.binding.cardImage.setOnClickListener((v -> onCardClickListener.onCardClick(card)));
-        //TODO: Revisar que no s'hagi de crear un objecte cardImageButton
-        //holder.binding.cardImageButton.setOnClickListener(v -> onCardClickListener.onCardClick(card));
     }
 
     @Override

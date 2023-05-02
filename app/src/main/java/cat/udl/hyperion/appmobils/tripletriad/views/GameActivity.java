@@ -1,16 +1,21 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.views;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity {
+import cat.udl.hyperion.appmobils.tripletriad.fragments.BoardFragment;
+import cat.udl.hyperion.appmobils.tripletriad.fragments.DeckFragment;
+import cat.udl.hyperion.appmobils.tripletriad.fragments.PlayerFragment;
+import cat.udl.hyperion.appmobils.tripletriad.R;
+
+public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
         PlayerFragment playerFragment = PlayerFragment.newInstance();
         DeckFragment deckFragment = DeckFragment.newInstance();

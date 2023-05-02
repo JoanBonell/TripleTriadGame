@@ -1,15 +1,14 @@
-package cat.udl.hyperion.appmobils.tripletriad;
+package cat.udl.hyperion.appmobils.tripletriad.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import cat.udl.hyperion.appmobils.tripletriad.R;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.CellLayoutBinding;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel;
