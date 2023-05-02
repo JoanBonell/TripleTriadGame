@@ -31,7 +31,9 @@ public class DeckFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_deck, container, false);
 
-        deckViewModel = new ViewModelProvider(this).get(DeckViewModel.class);
+        // Obtener una instancia de DeckViewModel
+        deckViewModel = new ViewModelProvider(requireActivity()).get(DeckViewModel.class);
+
         binding.setDeckViewModel(deckViewModel);
         binding.setLifecycleOwner(this);
 

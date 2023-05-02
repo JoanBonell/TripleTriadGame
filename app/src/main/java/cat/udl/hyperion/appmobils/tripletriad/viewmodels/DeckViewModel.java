@@ -1,12 +1,13 @@
 package cat.udl.hyperion.appmobils.tripletriad.viewmodels;
 
+
+
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import cat.udl.hyperion.appmobils.tripletriad.CardAdapter;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.models.Deck;
 import cat.udl.hyperion.appmobils.tripletriad.models.Player;
@@ -14,13 +15,14 @@ import cat.udl.hyperion.appmobils.tripletriad.models.Player;
 public class DeckViewModel extends ViewModel {
     private MutableLiveData<Deck> deck;
     private Player player;
-    private MutableLiveData<Card> cardSelected;
+    private MutableLiveData<Card> selectedCard;
+    private static final String TAG = "DeckViewModel";
 
     public DeckViewModel() {
         Log.d("DeckViewModel", "Creando el DeckViewModel...");
         deck = new MutableLiveData<>();
         deck.setValue(new Deck());
-        cardSelected = new MutableLiveData<>();
+        selectedCard = new MutableLiveData<>();
     }
 
     public LiveData<Deck> getDeck() {
@@ -53,19 +55,18 @@ public class DeckViewModel extends ViewModel {
     }
 
     public void setSelectedCard(Card card) {
-        Log.d("DeckViewModel", "Selected card: " + card.getName());
-        cardSelected.setValue(card);
+        Log.d(TAG, "Estableciendo la carta seleccionada: " + (card != null ? card.getName() : "null"));
+        selectedCard.setValue(card);
     }
+
 
 
 
     public LiveData<Card> getSelectedCard() {
-        if (cardSelected.getValue() != null) {
-            Log.d("DeckViewModel: ", "selectedCard is... "+ cardSelected.getValue().getName());
-        } else {
-            Log.d("DeckViewModel: ", "selectedCard is null.");
-        }
-        return cardSelected;
+        Log.d(TAG, "Obteniendo la carta seleccionada: " + (selectedCard.getValue() != null ? selectedCard.getValue().getName() : "null"));
+        return selectedCard;
     }
+
+
 
 }

@@ -7,9 +7,6 @@
             name="cellViewModel"
             type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel" />
         <variable
-            name="card"
-            type="cat.udl.hyperion.appmobils.tripletriad.models.Card" />
-        <variable
             name="board"
             type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel" />
     </data>
@@ -23,12 +20,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{cellViewModel.imageResource}"
-            android:background="@drawable/card_placeholder"
+            android:src="@{cellViewModel.imageResource}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> board.playSelectedCard(cellViewModel.cell.row, cellViewModel.cell.col, board.getDeckViewModel())}" />
+            android:onClick="@{(view) -> board.playSelectedCard(cellViewModel.cell.row, cellViewModel.cell.col)}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,7 @@
 package cat.udl.hyperion.appmobils.tripletriad;
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -40,6 +42,12 @@ public class BindingAdapters {
         } else {
             imageView.setImageResource(R.drawable.card_placeholder);
         }
+    }
+
+
+    @BindingAdapter("android:src")
+    public static void setImageResource(ImageView imageView, int resource){
+        imageView.setImageResource(resource);
     }
 
 }

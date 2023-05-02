@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentBoardBinding;
+import cat.udl.hyperion.appmobils.tripletriad.models.Board;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
@@ -33,13 +34,6 @@ public class BoardFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-
-    public void setDeckViewModel(DeckViewModel deckViewModel){
-        this.deckViewModel = deckViewModel;
-    }
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,16 +60,28 @@ public class BoardFragment extends Fragment {
         binding.setLifecycleOwner(this);
         setupRecyclerView();
 
-        deckViewModel.getSelectedCard().observe(getViewLifecycleOwner(), new Observer<Card>() {
+        // Verifica que getSelectedCard() no devuelva null antes de llamar a observe
+        LiveData<Card> selectedCardLiveData = deckViewModel.getSelectedCard();
+        if (selectedCardLiveData != null) {
+            selectedCardLiveData.observe(getViewLifecycleOwner(), new Observer<Card>() {
+                @Override
+                public void onChanged(Card card) {
+                    // Aquí puede manejar los cambios en la carta seleccionada si es necesario
+                    // boardViewModel.playCard(1,0,card);
+                }
+            });
+        }
+        boardViewModel.getBoard().observe(getViewLifecycleOwner(), new Observer<Board>() {
             @Override
-            public void onChanged(Card card) {
-                // Aquí puede manejar los cambios en la carta seleccionada si es necesario
-               // boardViewModel.playCard(1,0,card);
+            public void onChanged(Board board) {
+                cellAdapter.notifyDataSetChanged();
             }
         });
 
+
         return binding.getRoot();
     }
+
 
 
 
