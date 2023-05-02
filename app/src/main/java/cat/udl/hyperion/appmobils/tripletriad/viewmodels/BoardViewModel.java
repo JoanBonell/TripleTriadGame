@@ -22,6 +22,8 @@ public class BoardViewModel extends ViewModel {
     private MutableLiveData<Card> selectedCard = new MutableLiveData<>();
 
     private MutableLiveData<List<Cell>> cells;
+    private List<CellViewModel> cellViewModels;
+
 
     public LiveData<Card> getSelectedCard(){
         return deckViewModel.getSelectedCard();
@@ -45,21 +47,31 @@ public class BoardViewModel extends ViewModel {
         }
 
         cells.setValue(initialCells);
-
+        initializeCellViewModels();
         board = new MutableLiveData<>();
         board.setValue(new Board());
     }
+    private void initializeCellViewModels() {
+        cellViewModels = new ArrayList<>();
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                CellViewModel cellViewModel = getCellViewModelAt(row, col);
+                cellViewModels.add(cellViewModel);
+            }
+        }
+    }
+
 
     public LiveData<Board> getBoard() {
         return board;
     }
 
     public void placeCard(int row, int col, Card card) {
-        if (board.getValue() != null) {
-            board.getValue().placeCard(card, new Cell(row, col));
-            board.postValue(board.getValue());
-        }
+        Cell cell = getCellAt(row, col);
+        cell.setCard(card);
+        updateCellInCellsList(cell);
     }
+
     public void playCard(int row, int col, Card card) {
         Log.d(TAG, "Jugando una carta " + (card != null ? card.toString() : "null"));
         if (card != null) {
@@ -92,23 +104,19 @@ public class BoardViewModel extends ViewModel {
     public void playSelectedCard(int row, int col) {
         Card cardToPlay = deckViewModel.getSelectedCard().getValue();
         if (cardToPlay != null) {
-            Log.d(TAG, "Colocando una carta en la posicion " + row + " " + col + " la carta es " + cardToPlay.getName());
-            // Actualiza la celda y la tabla aquí
-            Cell cell = getCellAt(row, col);
-            cell.setCard(cardToPlay);
-            updateCellInCellsList(cell);
-
-            // Obtén y actualiza el CellViewModel correspondiente
-            CellViewModel cellViewModel = getCellViewModelAt(row, col);
-            cellViewModel.notifyPropertyChanged(BR.imageResource);
+            Log.d(TAG, "Colocando una carta en la posición " + row + " " + col + " la carta es " + cardToPlay.getName());
+            placeCard(row, col, cardToPlay);
 
             // Elimina la carta del deck una vez que se ha jugado
             deckViewModel.removeCardFromDeck(cardToPlay);
+
+            // Imprime el estado del tablero
             logBoardState();
         } else {
             Log.d(TAG, "La carta seleccionada es null");
         }
     }
+
 
 
     public DeckViewModel getDeckViewModel() {
@@ -142,6 +150,10 @@ public class BoardViewModel extends ViewModel {
             }
         }
         Log.d(TAG, boardState.toString());
+    }
+    // BoardViewModel.java
+    public List<CellViewModel> getCellViewModels() {
+        return cellViewModels;
     }
 
 

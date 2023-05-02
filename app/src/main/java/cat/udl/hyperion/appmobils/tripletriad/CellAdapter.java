@@ -32,14 +32,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
 
     public CellAdapter(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
-        cellViewModels = new ArrayList<>();
-
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                CellViewModel cellViewModel = boardViewModel.getCellViewModelAt(row, col);
-                cellViewModels.add(cellViewModel);
-            }
-        }
+        this.cellViewModels = boardViewModel.getCellViewModels();
     }
 
     @NonNull
@@ -59,6 +52,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         holder.binding.setBoard(boardViewModel);
         holder.binding.executePendingBindings();
     }
+
 
 
 

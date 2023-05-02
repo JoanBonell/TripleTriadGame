@@ -20,11 +20,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{cellViewModel.imageResource}"
+            android:src="@{cellViewModel.imageResource}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:onClick="@{(view) -> board.playSelectedCard(cellViewModel.cell.row, cellViewModel.cell.col)}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
