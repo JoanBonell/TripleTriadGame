@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.models.Deck;
-import cat.udl.hyperion.appmobils.tripletriad.models.Player;
+import cat.udl.hyperion.appmobils.tripletriad.models.player.Player;
 
 public class DeckViewModel extends ViewModel {
     private MutableLiveData<Deck> deck;
@@ -68,5 +68,19 @@ public class DeckViewModel extends ViewModel {
     }
 
 
+    public void resetDeck() {
+        Deck currentDeck = deck.getValue();
+        if (currentDeck != null) {
+            currentDeck.initializeDeck(); // Asumiendo que este método reinicia el mazo a su estado inicial.
+            deck.postValue(currentDeck);
+        }
+    }
 
+    public boolean isDeckEmpty() {
+        Deck currentDeck = deck.getValue();
+        if (currentDeck != null) {
+            return currentDeck.getCards().isEmpty();
+        }
+        return true;
+    }
 }

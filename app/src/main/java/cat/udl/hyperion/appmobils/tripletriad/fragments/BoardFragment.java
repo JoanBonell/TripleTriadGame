@@ -1,100 +1,76 @@
 package cat.udl.hyperion.appmobils.tripletriad.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cat.udl.hyperion.appmobils.tripletriad.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import cat.udl.hyperion.appmobils.tripletriad.adapters.CellAdapter;
 import cat.udl.hyperion.appmobils.tripletriad.databinding.FragmentBoardBinding;
-import cat.udl.hyperion.appmobils.tripletriad.models.Board;
-import cat.udl.hyperion.appmobils.tripletriad.models.Card;
+import cat.udl.hyperion.appmobils.tripletriad.GameController;
 import cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel;
-import cat.udl.hyperion.appmobils.tripletriad.viewmodels.DeckViewModel;
 
 public class BoardFragment extends Fragment {
 
     private BoardViewModel boardViewModel;
-    private DeckViewModel deckViewModel;
+    private GameController gameController;
     private FragmentBoardBinding binding;
     private CellAdapter cellAdapter;
 
-    public static BoardFragment newInstance() {
+    public static BoardFragment newInstance(GameController gameController) {
         BoardFragment fragment = new BoardFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setGameController(gameController);
         return fragment;
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Obtener una instancia de BoardViewModel
-        boardViewModel = new ViewModelProvider(requireActivity()).get(BoardViewModel.class);
+        // Crear una instancia de BoardViewModel con el GameController
+        boardViewModel = new BoardViewModel(gameController);
 
-        // Obtener una instancia de DeckViewModel
-        deckViewModel = new ViewModelProvider(requireActivity()).get(DeckViewModel.class);
-
-        // Asignar la instancia de DeckViewModel al BoardViewModel
-        boardViewModel.setDeckViewModel(deckViewModel);
+        // Agregar un observador para escuchar cambios en el BoardViewModel
+        boardViewModel.getBoardDataChanged().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean != null && aBoolean) {
+                    // Si hay cambios en el tablero, actualizar el RecyclerView
+                    cellAdapter.notifyDataSetChanged();
+                    // Restablecer el valor de boardDataChanged en el ViewModel
+                    boardViewModel.setBoardDataChanged(false);
+                }
+            }
+        });
     }
-
-
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_board, container, false);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = FragmentBoardBinding.inflate(inflater, container, false);
         binding.setBoardViewModel(boardViewModel);
-        binding.setLifecycleOwner(this);
-        setupRecyclerView();
 
-        // Verifica que getSelectedCard() no devuelva null antes de llamar a observe
-        LiveData<Card> selectedCardLiveData = deckViewModel.getSelectedCard();
-        if (selectedCardLiveData != null) {
-            selectedCardLiveData.observe(getViewLifecycleOwner(), new Observer<Card>() {
-                @Override
-                public void onChanged(Card card) {
-                    // Aquí puede manejar los cambios en la carta seleccionada si es necesario
-                    // boardViewModel.playCard(1,0,card);
-                }
-            });
-        }
-        boardViewModel.getBoard().observe(getViewLifecycleOwner(), new Observer<Board>() {
-            @Override
-            public void onChanged(Board board) {
-                cellAdapter.notifyDataSetChanged();
-            }
-        });
-
+        cellAdapter = new CellAdapter(gameController);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        binding.recyclerView.setAdapter(cellAdapter);
 
         return binding.getRoot();
     }
 
-
-
-
-    private void setupRecyclerView() {
-        cellAdapter = new CellAdapter(boardViewModel);
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        binding.recyclerView.setAdapter(cellAdapter);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
-
-
-
-
-
-
 }

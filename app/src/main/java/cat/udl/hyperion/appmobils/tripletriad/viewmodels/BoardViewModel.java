@@ -12,6 +12,7 @@ import java.util.List;
 import cat.udl.hyperion.appmobils.tripletriad.models.Board;
 import cat.udl.hyperion.appmobils.tripletriad.models.Card;
 import cat.udl.hyperion.appmobils.tripletriad.models.Cell;
+import cat.udl.hyperion.appmobils.tripletriad.GameController;
 
 public class BoardViewModel extends ViewModel {
     private MutableLiveData<Board> board;
@@ -21,6 +22,10 @@ public class BoardViewModel extends ViewModel {
 
     private MutableLiveData<List<Cell>> cells;
     private List<CellViewModel> cellViewModels;
+    private GameController gameController;
+    private MutableLiveData<Boolean> boardDataChanged;
+
+
 
     public LiveData<Card> getSelectedCard(){
         return deckViewModel.getSelectedCard();
@@ -30,7 +35,9 @@ public class BoardViewModel extends ViewModel {
         selectedCard.setValue(card);
     }
 
-    public BoardViewModel() {
+    public BoardViewModel(GameController gameController) {
+        this.gameController = gameController;
+        this.boardDataChanged = new MutableLiveData<>();
         Log.d(TAG, "Creando el BoardViewModel...");
 
         cells = new MutableLiveData<>();
@@ -61,7 +68,10 @@ public class BoardViewModel extends ViewModel {
     public void placeCard(int row, int col, Card card) {
         if (board.getValue() != null) {
             board.getValue().placeCard(card, new Cell(row, col));
+            CellViewModel cellViewModel = getCellViewModelAt(row, col);
+            cellViewModel.setCard(card);
             board.postValue(board.getValue());
+            logBoardState();
         }
     }
 
@@ -88,9 +98,6 @@ public class BoardViewModel extends ViewModel {
         if (cardToPlay != null) {
             Log.d(TAG, "Colocando una carta en la posición " + row + " " + col + " la carta es " + cardToPlay.getName());
             placeCard(row, col, cardToPlay);
-
-            CellViewModel cellViewModel = getCellViewModelAt(row, col);
-            cellViewModel.setCard(cardToPlay);
 
             deckViewModel.removeCardFromDeck(cardToPlay);
 
@@ -127,6 +134,34 @@ public class BoardViewModel extends ViewModel {
 
     public List<CellViewModel> getCellViewModels() {
         return cellViewModels;
+    }
+
+    public void clearBoard() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                CellViewModel cellViewModel = getCellViewModelAt(row, col);
+                cellViewModel.clearCard();
+            }
+        }
+    }
+
+    public boolean isBoardFull() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                CellViewModel cellViewModel = getCellViewModelAt(row, col);
+                if (cellViewModel.getCard().getValue() == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public MutableLiveData<Boolean> getBoardDataChanged() {
+        return boardDataChanged;
+    }
+
+    public void setBoardDataChanged(boolean changed) {
+        this.boardDataChanged.setValue(changed);
     }
 }
 

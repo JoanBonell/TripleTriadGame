@@ -17,6 +17,7 @@ public class Deck {
     }
 
     public void initializeDeck(){
+        //TODO: Fer que initializeDeck agafi únicament les 5 cartes seleccionades de Collection.
         cards = new ObservableArrayList<>();
         cards.add(new Card(R.drawable.barrio_adri_contreras_presidente,"AdriContreras", 9, 7, 10,10));
         cards.add(new Card(R.drawable.barrio_barnera_portero, "Barnera", 3, 4, 4, 4));

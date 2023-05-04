@@ -40,6 +40,9 @@ public class CellViewModel extends ViewModel {
         this.card.setValue(card);
         updateImageResource();
     }
+    public void clearCard() {
+        card.setValue(null);
+    }
 
     private void updateImageResource() {
         if (card.getValue() != null) {

@@ -7,9 +7,10 @@
             name="cellViewModel"
             type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.CellViewModel" />
         <variable
-            name="board"
-            type="cat.udl.hyperion.appmobils.tripletriad.viewmodels.BoardViewModel" />
+            name="cellClickListener"
+            type="android.view.View.OnClickListener" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="100dp"
@@ -25,7 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{(view) -> board.playSelectedCard(cellViewModel.cell.row, cellViewModel.cell.col)}" />
+            android:onClick="@{cellClickListener.onClick}" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

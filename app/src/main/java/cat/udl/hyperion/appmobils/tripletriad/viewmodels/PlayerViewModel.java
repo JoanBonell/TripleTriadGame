@@ -1,14 +1,16 @@
 package cat.udl.hyperion.appmobils.tripletriad.viewmodels;
 
 import androidx.lifecycle.ViewModel;
-import cat.udl.hyperion.appmobils.tripletriad.models.Player;
+
+import cat.udl.hyperion.appmobils.tripletriad.models.player.HumanPlayer;
+import cat.udl.hyperion.appmobils.tripletriad.models.player.Player;
 
 public class PlayerViewModel extends ViewModel {
-    private Player player;
+    private HumanPlayer player;
 
     public PlayerViewModel() {
         // Asume que el nombre del jugador es "Jugador1" por defecto.
-        player = new Player("Joan");
+        player = new HumanPlayer("Joan");
         player.getDeck().initializeDeck();
     }
 
@@ -16,7 +18,7 @@ public class PlayerViewModel extends ViewModel {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(HumanPlayer player) {
         this.player = player;
     }
 

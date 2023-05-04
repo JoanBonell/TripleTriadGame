@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import cat.udl.hyperion.appmobils.tripletriad.R;
@@ -23,18 +22,20 @@ public class DeckFragment extends Fragment {
     private FragmentDeckBinding binding;
     private CardAdapter cardAdapter;
 
-    public static DeckFragment newInstance() {
+    public static DeckFragment newInstance(DeckViewModel humanDeckViewModel) {
         DeckFragment deckFragment = new DeckFragment();
+        deckFragment.setDeckViewModel(humanDeckViewModel);
         return deckFragment;
+    }
+
+    public void setDeckViewModel(DeckViewModel deckViewModel) {
+        this.deckViewModel = deckViewModel;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_deck, container, false);
-
-        // Obtener una instancia de DeckViewModel
-        deckViewModel = new ViewModelProvider(requireActivity()).get(DeckViewModel.class);
 
         binding.setDeckViewModel(deckViewModel);
         binding.setLifecycleOwner(this);
