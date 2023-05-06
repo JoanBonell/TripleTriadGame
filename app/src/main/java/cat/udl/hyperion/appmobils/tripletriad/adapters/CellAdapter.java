@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
     private final GameController gameController;
 
     private List<CellViewModel> cellViewModels;
+    private final LifecycleOwner lifecycleOwner;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final CellLayoutBinding binding;
@@ -31,10 +33,14 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         }
     }
 
-    public CellAdapter(GameController gameController) {
+
+
+    public CellAdapter(GameController gameController, LifecycleOwner lifecycleOwner) {
         this.gameController = gameController;
+        this.lifecycleOwner = lifecycleOwner;
         this.cellViewModels = gameController.getBoardViewModel().getCellViewModels();
     }
+
 
     @NonNull
     @Override
@@ -52,17 +58,22 @@ public class CellAdapter extends RecyclerView.Adapter<CellAdapter.ViewHolder> {
         holder.binding.setCellViewModel(cellViewModel);
         holder.binding.executePendingBindings();
 
-        View.OnClickListener cellClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gameController.isCellEmpty(row, col)) {
-                    gameController.playCard(row, col);
-                }
+        // Agregar un observador para escuchar cambios en imageResource
+        cellViewModel.getImageResource().observe(lifecycleOwner, integer -> {
+            if (integer != null) {
+                holder.binding.imageView.setImageResource(integer);
+            }
+        });
+
+        View.OnClickListener cellClickListener = v -> {
+            if (gameController.isCellEmpty(row, col)) {
+                gameController.playCard(row, col);
             }
         };
 
         holder.binding.setCellClickListener(cellClickListener);
     }
+
     @Override
     public int getItemCount() {
         return numCells;

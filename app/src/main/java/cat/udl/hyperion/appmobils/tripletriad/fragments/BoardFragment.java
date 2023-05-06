@@ -41,17 +41,15 @@ public class BoardFragment extends Fragment {
         boardViewModel = new BoardViewModel(gameController);
 
         // Agregar un observador para escuchar cambios en el BoardViewModel
-        boardViewModel.getBoardDataChanged().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean != null && aBoolean) {
-                    // Si hay cambios en el tablero, actualizar el RecyclerView
-                    cellAdapter.notifyDataSetChanged();
-                    // Restablecer el valor de boardDataChanged en el ViewModel
-                    boardViewModel.setBoardDataChanged(false);
-                }
+        boardViewModel.getBoardDataChanged().observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean) {
+                // Si hay cambios en el tablero, actualizar el RecyclerView
+                cellAdapter.notifyDataSetChanged();
+                // Restablecer el valor de boardDataChanged en el ViewModel
+                boardViewModel.setBoardDataChanged(false);
             }
         });
+
     }
 
     @Nullable
@@ -61,7 +59,7 @@ public class BoardFragment extends Fragment {
         binding = FragmentBoardBinding.inflate(inflater, container, false);
         binding.setBoardViewModel(boardViewModel);
 
-        cellAdapter = new CellAdapter(gameController);
+        cellAdapter = new CellAdapter(gameController, getViewLifecycleOwner());
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.recyclerView.setAdapter(cellAdapter);
 
